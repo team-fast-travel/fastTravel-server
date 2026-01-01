@@ -50,3 +50,13 @@ export type NotificationEditParams = ParamsDictionary & {
 export type ReviewEditParams = ParamsDictionary & {
     userId: string;
 }
+
+// User interface
+export type UserEditParams = ParamsDictionary & {
+    userId: string;
+}
+
+// Vehicle interface
+export type VehicleEditParams = ParamsDictionary & {
+    vehicleId: string;
+}

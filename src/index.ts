@@ -8,7 +8,7 @@ import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger.js";
 
-import { type MsgFetchParams, type MsgDeleteParams, type GrpFetchParams, type GrpDeleteParams, type BookEditParams, type RideEditParams, type AddressEditParams, type CardEditParams, type NotificationEditParams, type ReviewEditParams } from "./interface/interface.js";
+import { type MsgFetchParams, type MsgDeleteParams, type GrpFetchParams, type GrpDeleteParams, type BookEditParams, type RideEditParams, type AddressEditParams, type CardEditParams, type NotificationEditParams, type ReviewEditParams, type UserEditParams, type VehicleEditParams } from "./interface/interface.js";
 
 import { connection } from "./config/connection.js";
 import { authToken } from "./middleware/authToken.js";
@@ -66,8 +66,19 @@ import { markAllNotificationsAsRead } from "./routes/users/notification/markAllN
 import { createReview } from "./routes/users/reviews/createReview.js";
 import { fetchUserReviews } from "./routes/users/reviews/fetchUserReview.js";
 
-// Log routes
+// Users
 import { login } from "./routes/users/logUser/login.js";
+import { register } from "./routes/users/logUser/register.js";
+import { fetchUser } from "./routes/users/logUser/fetchUser.js";
+import { editUser } from "./routes/users/logUser/editUser.js";
+import { deleteUser } from "./routes/users/logUser/deleteUser.js";
+
+// Vehicles
+import { createVehicleByUser } from "./routes/users/vehicles/createVehicleByUser.js";
+import { fetchVehicleById } from "./routes/users/vehicles/fetchVehicleById.js";
+import { fetchVehicleByUser } from "./routes/users/vehicles/fetchVehicleByUser.js";
+import { editVehicleByUser } from "./routes/users/vehicles/editVehicleByUser.js";
+import { deleteVehicleByUser } from "./routes/users/vehicles/deleteVehicleByUser.js";
 
 const app = express();
 
@@ -151,10 +162,22 @@ app.post('/create_review', authToken, createReview);
 app.get<ReviewEditParams>('/fetch_user_review/:userId', authToken, fetchUserReviews)
 
 // --------------------
-// LOG USER
+// USER
 // --------------------
-app.post('/login', login)
+app.post('/login', login);
+app.post('/register', register);
+app.get('/fetch_user/:userId', authToken, fetchUser);
+app.put<UserEditParams>('/edit_user/:userId', authToken, editUser);
+app.delete<UserEditParams>('/delete_user/:userId', authToken, deleteUser);
 
+// --------------------
+// VEHICLE
+// --------------------
+app.post('/create_vehicle', authToken, createVehicleByUser);
+app.get<VehicleEditParams>('/fetch_vehicle/:vehicleId', authToken, fetchVehicleById);
+app.get('/fetch_vehicles_by_user/:userId', authToken, fetchVehicleByUser);
+app.put<VehicleEditParams>('/edit_vehicle/:vehicleId', authToken, editVehicleByUser);
+app.delete<VehicleEditParams>('/delete_vehicle/:vehicleId', authToken, deleteVehicleByUser);
 
 // start server + DB connection
 connection({

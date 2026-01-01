@@ -18,3 +18,6 @@ export const comparePwd = async<T extends Document & { email: string; password: 
 
     return bcrypt.compare(id.password, user.password);
 };
+export const hashPwd = async (password: string) => {
+    return await bcrypt.hash(password, 10);
+}
