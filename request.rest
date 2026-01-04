@@ -1,0 +1,13 @@
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+    "firstName": "Al-min",
+    "lastName": "Ajadi",
+    "gender": "male",
+    "email": "akalmin247@gmail.com",
+    "phone": "3013565173",
+    "password": "3013565173",
+    "province": "Saskatchewan",
+    "city": "Regina"
+}

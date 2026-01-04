@@ -68,17 +68,17 @@ import { fetchUserReviews } from "./routes/users/reviews/fetchUserReview.js";
 
 // Users
 import { login } from "./routes/users/logUser/login.js";
-import { register } from "./routes/users/logUser/register.js";
-import { fetchUser } from "./routes/users/logUser/fetchUser.js";
-import { editUser } from "./routes/users/logUser/editUser.js";
-import { deleteUser } from "./routes/users/logUser/deleteUser.js";
+import { register } from "./routes/users/user/register.js";
+import { fetchUser } from "./routes/users/user/fetchUser.js";
+import { editUser } from "./routes/users/user/editUser.js";
+import { deleteUser } from "./routes/users/user/deleteUser.js";
 
 // Vehicles
-import { createVehicleByUser } from "./routes/users/vehicles/createVehicleByUser.js";
-import { fetchVehicleById } from "./routes/users/vehicles/fetchVehicleById.js";
-import { fetchVehicleByUser } from "./routes/users/vehicles/fetchVehicleByUser.js";
-import { editVehicleByUser } from "./routes/users/vehicles/editVehicleByUser.js";
-import { deleteVehicleByUser } from "./routes/users/vehicles/deleteVehicleByUser.js";
+import { createVehicleByUser } from "./routes/vehicles/createVehicleByUser.js";
+import { fetchVehicleById } from "./routes/vehicles/fetchVehicleById.js";
+import { fetchVehicleByUser } from "./routes/vehicles/fetchVehicleByUser.js";
+import { editVehicleByUser } from "./routes/vehicles/editVehicleByUser.js";
+import { deleteVehicleByUser } from "./routes/vehicles/deleteVehicleByUser.js";
 
 const app = express();
 

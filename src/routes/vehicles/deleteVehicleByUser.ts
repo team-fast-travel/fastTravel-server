@@ -1,8 +1,8 @@
-import { getSocket } from "../../../config/connection.js";
-import type { VehicleEditParams } from "../../../interface/interface.js";
-import { User } from "../../../models/users/user.js";
+import { getSocket } from "../../config/connection.js";
+import type { VehicleEditParams } from "../../interface/interface.js";
+import { User } from "../../models/users/user.js";
 import type { Request, Response } from "express";
-import { Vehicle } from "../../../models/vehicle/vehicle.js";
+import { Vehicle } from "../../models/vehicle/vehicle.js";
 
 export const deleteVehicleByUser = async (req: Request<VehicleEditParams>, res: Response) => {
     const userId = req.user.id;

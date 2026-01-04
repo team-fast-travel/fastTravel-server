@@ -1,7 +1,7 @@
-import { getSocket } from "../../../config/connection.js";
-import type { VehicleEditParams } from "../../../interface/interface.js";
-import { Vehicle } from "../../../models/vehicle/vehicle.js";
-import { User } from "../../../models/users/user.js";
+import { getSocket } from "../../config/connection.js";
+import type { VehicleEditParams } from "../../interface/interface.js";
+import { Vehicle } from "../../models/vehicle/vehicle.js";
+import { User } from "../../models/users/user.js";
 import type { Request, Response } from "express";
 
 export const editVehicleByUser = async (req: Request<VehicleEditParams>, res: Response) => {

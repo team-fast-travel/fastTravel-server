@@ -15,9 +15,9 @@ interface BodyParam {
 }
 
 export const register = async (req: Request<{}, any, BodyParam>, res: Response) => {
-    const { email, password } = req.body;
+    const { firstName, lastName, gender, email, phone, password, province, city } = req.body;
 
-    if (!email || !password) {
+    if (!firstName || !lastName || !gender || !email || !phone || !password || !province || !city) {
         return res.status(400).json({
             message: 'Email and Password field are required'
         })
@@ -30,15 +30,19 @@ export const register = async (req: Request<{}, any, BodyParam>, res: Response) 
         }
 
         const user = await User.create({
-            email, 
+            firstName, 
+            lastName, 
+            gender,
+            email,
+            phone,
             password: await hashPwd(password),
+            province,
+            city
         })
 
-        const token = generateToken(user._id.toString())
         return res.status(200).json({
-            message: "Login Successful",
+            message: "Onboarding Successful",
             data: user,
-            token: token
         });
     } catch (error) {
         return res.status(500).json({

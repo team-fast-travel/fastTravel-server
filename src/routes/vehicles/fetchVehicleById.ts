@@ -1,6 +1,6 @@
-import { Vehicle } from "../../../models/vehicle/vehicle.js";
+import { Vehicle } from "../../models/vehicle/vehicle.js";
 import type { Request, Response } from "express";
-import type { VehicleEditParams } from "../../../interface/interface.js";
+import type { VehicleEditParams } from "../../interface/interface.js";
 
 export const fetchVehicleById = async (req: Request<VehicleEditParams>, res: Response) => {
     const userId = req.user.id;

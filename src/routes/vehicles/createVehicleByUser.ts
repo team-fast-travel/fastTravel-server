@@ -1,7 +1,7 @@
-import { getSocket } from "../../../config/connection.js";
-import { User } from "../../../models/users/user.js";
+import { getSocket } from "../../config/connection.js";
+import { User } from "../../models/users/user.js";
 import type { Request, Response } from "express";
-import { Vehicle, type VehicleDocument } from "../../../models/vehicle/vehicle.js";
+import { Vehicle, type VehicleDocument } from "../../models/vehicle/vehicle.js";
 
 export const createVehicleByUser = async (req: Request<{}, any, VehicleDocument>, res: Response) => {
     const userId = req.user.id;
