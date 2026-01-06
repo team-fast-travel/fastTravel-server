@@ -3,10 +3,40 @@ import { Reviews } from "../../../models/users/reviews.js";
 import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";
 
+/**
+ * @swagger
+ * /create_review:
+ *   post:
+ *     summary: Create a review for a user
+ *     tags: [Reviews]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *               star:
+ *                 type: number
+ *               comment:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Review created
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
+
 interface ReviewBody {
     userId: string;
     star: number;
-    comment?: string;
+    comment: string;
 }
 
 export const createReview = async (req: Request<{}, any, ReviewBody>, res: Response) => {

@@ -1,3 +1,22 @@
+/**
+ * @openapi
+ * /fetch_vehicle/{vehicleId}:
+ *   get:
+ *     tags:
+ *       - Vehicle
+ *     summary: Fetch a vehicle by id
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: vehicleId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Vehicle data
+ */
 import { Vehicle } from "../../models/vehicle/vehicle.js";
 import type { Request, Response } from "express";
 import type { VehicleEditParams } from "../../interface/interface.js";

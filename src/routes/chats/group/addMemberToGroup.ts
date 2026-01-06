@@ -1,3 +1,32 @@
+/**
+ * @swagger
+ * /add_member:
+ *   put:
+ *     summary: Add member to a group
+ *     tags: [Group]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               groupId:
+ *                 type: string
+ *               memberId:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Member added
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Group or user not found
+ *       500:
+ *         description: Server error
+ */
 import { Group } from "../../../models/chats/group.js";
 import { getSocket } from "../../../config/connection.js";
 import { User } from "../../../models/users/user.js";

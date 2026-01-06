@@ -1,3 +1,34 @@
+/**
+ * @swagger
+ * /create_booking:
+ *   post:
+ *     summary: Create a booking
+ *     tags: [Booking]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               rideId:
+ *                 type: string
+ *               pickup_address:
+ *                 type: string
+ *               drop_off_address:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Booking created
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Not found
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import { Ride } from "../../../models/ride/ride.js";
 import { BookRide } from "../../../models/ride/bookRide.js";

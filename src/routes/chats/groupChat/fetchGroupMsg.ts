@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ * /get_msg/{groupId}/:
+ *   get:
+ *     summary: Fetch messages for a group
+ *     tags: [GroupChat]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: groupId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The group ID
+ *     responses:
+ *       200:
+ *         description: Group messages
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Group not found
+ *       500:
+ *         description: Server error
+ */
 import { GroupChat } from "../../../models/chats/groupChat.js";
 import { Group } from "../../../models/chats/group.js";
 import type { Request, Response } from "express";

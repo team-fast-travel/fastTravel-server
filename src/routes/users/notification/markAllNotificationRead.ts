@@ -1,3 +1,19 @@
+/**
+ * @swagger
+ * /mark_all_notification_read:
+ *   put:
+ *     summary: Mark all user notifications as read
+ *     tags: [Notification]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: All notifications marked read
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 import { Notification } from "../../../models/users/notification.js";
 import { getSocket } from "../../../config/connection.js";
 import { User } from "../../../models/users/user.js";

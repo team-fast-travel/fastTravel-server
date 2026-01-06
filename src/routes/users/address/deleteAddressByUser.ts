@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ * /delete_address/{addressId}:
+ *   delete:
+ *     summary: Delete an address
+ *     tags: [Address]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: addressId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The address ID
+ *     responses:
+ *       200:
+ *         description: Address deleted
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Address not found
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import { Address } from "../../../models/users/address.js";
 import { User } from "../../../models/users/user.js";

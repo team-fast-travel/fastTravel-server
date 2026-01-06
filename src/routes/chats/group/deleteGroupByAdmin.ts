@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ * /del_grp/{groupId}:
+ *   delete:
+ *     summary: Delete a group by admin
+ *     tags: [Group]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: groupId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The group ID
+ *     responses:
+ *       200:
+ *         description: Group deleted
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Group not found
+ *       500:
+ *         description: Server error
+ */
 import { Group } from "../../../models/chats/group.js";
 import { getSocket } from "../../../config/connection.js";
 import type { Request, Response } from "express";

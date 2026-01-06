@@ -1,3 +1,19 @@
+/**
+ * @swagger
+ * /fetch_user_notification:
+ *   get:
+ *     summary: Fetch notifications for authenticated user
+ *     tags: [Notification]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User notifications
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 import { Notification } from "../../../models/users/notification.js";
 import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";

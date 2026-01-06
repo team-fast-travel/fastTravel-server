@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ * /create_card:
+ *   post:
+ *     summary: Create a payment card for user
+ *     tags: [Card]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               card_no:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Card created
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import { Card } from "../../../models/users/cards.js";
 import { User } from "../../../models/users/user.js";

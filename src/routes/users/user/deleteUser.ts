@@ -1,3 +1,16 @@
+/**
+ * @openapi
+ * /delete_user:
+ *   delete:
+ *     tags:
+ *       - User
+ *     summary: Delete authenticated user
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User deleted
+ */
 import { getSocket } from "../../../config/connection.js";
 import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";

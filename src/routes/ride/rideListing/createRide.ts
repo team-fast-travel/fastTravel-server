@@ -1,3 +1,34 @@
+/**
+ * @swagger
+ * /create_ride:
+ *   post:
+ *     summary: Create a ride listing
+ *     tags: [Ride]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               start_location:
+ *                 type: string
+ *               drop_off:
+ *                 type: string
+ *               departure_date:
+ *                 type: string
+ *               departure_time:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Ride created
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import { Ride } from "../../../models/ride/ride.js";
 import { Vehicle } from "../../../models/vehicle/vehicle.js";

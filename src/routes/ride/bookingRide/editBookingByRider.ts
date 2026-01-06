@@ -1,3 +1,39 @@
+/**
+ * @swagger
+ * /edit_booking/{bookId}:
+ *   put:
+ *     summary: Edit a booking by booker
+ *     tags: [Booking]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: bookId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The booking ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               pickup_address:
+ *                 type: string
+ *               drop_off_address:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Booking updated
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Booking not found
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import type { BookEditParams } from "../../../interface/interface.js";
 import { BookRide } from "../../../models/ride/bookRide.js";

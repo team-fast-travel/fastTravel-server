@@ -1,3 +1,34 @@
+/**
+ * @swagger
+ * /delete_msg/{messageId}/{groupId}:
+ *   delete:
+ *     summary: Delete a group message
+ *     tags: [GroupChat]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: messageId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The message ID
+ *       - in: path
+ *         name: groupId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The group ID
+ *     responses:
+ *       200:
+ *         description: Group message deleted
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Message not found
+ *       500:
+ *         description: Server error
+ */
 import { GroupChat } from "../../../models/chats/groupChat.js";
 import { Group } from "../../../models/chats/group.js";
 import type { Request, Response } from "express";

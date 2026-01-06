@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ * /cancel_booking/{bookId}:
+ *   delete:
+ *     summary: Cancel a booking
+ *     tags: [Booking]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: bookId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The booking ID
+ *     responses:
+ *       200:
+ *         description: Booking cancelled
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Booking not found
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import type { BookEditParams } from "../../../interface/interface.js";
 import { BookRide } from "../../../models/ride/bookRide.js";

@@ -1,3 +1,34 @@
+/**
+ * @swagger
+ * /delete_msg/{messageId}/{otherUserId}:
+ *   delete:
+ *     summary: Delete a message between two users
+ *     tags: [Chat]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: messageId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The message ID
+ *       - in: path
+ *         name: otherUserId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The other user ID
+ *     responses:
+ *       200:
+ *         description: Message deleted
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Message not found
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import type { MsgDeleteParams } from "../../../interface/interface.js";
 import { Chat } from "../../../models/chats/chat.js";

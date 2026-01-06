@@ -1,3 +1,34 @@
+/**
+ * @swagger
+ * /create_address:
+ *   post:
+ *     summary: Create a new address for user
+ *     tags: [Address]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               address:
+ *                 type: string
+ *               province:
+ *                 type: string
+ *               city:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Address created
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import { Address } from "../../../models/users/address.js";
 import { User } from "../../../models/users/user.js";

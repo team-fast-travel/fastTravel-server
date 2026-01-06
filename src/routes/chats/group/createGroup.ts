@@ -1,3 +1,30 @@
+/**
+ * @swagger
+ * /create_group:
+ *   post:
+ *     summary: Create a chat group
+ *     tags: [Group]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               groupName:
+ *                 type: string
+ *               bio:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Group created
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 import { Group } from "../../../models/chats/group.js";
 import { User } from "../../../models/users/user.js";
 import { getSocket } from "../../../config/connection.js";

@@ -1,3 +1,21 @@
+/**
+ * @swagger
+ * /fetch_booking:
+ *   get:
+ *     summary: Fetch bookings for authenticated rider
+ *     tags: [Booking]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of bookings
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Not found
+ *       500:
+ *         description: Server error
+ */
 import { BookRide } from "../../../models/ride/bookRide.js";
 import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";

@@ -1,3 +1,34 @@
+/**
+ * @swagger
+ * /get_msg/{senderId}/{receiverId}:
+ *   get:
+ *     summary: Fetch messages between two users
+ *     tags: [Chat]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: senderId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Sender user ID
+ *       - in: path
+ *         name: receiverId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Receiver user ID
+ *     responses:
+ *       200:
+ *         description: List of messages
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Messages not found
+ *       500:
+ *         description: Server error
+ */
 import type { MsgFetchParams } from "../../../interface/interface.js";
 import { Chat } from "../../../models/chats/chat.js";
 import { User } from "../../../models/users/user.js";

@@ -1,3 +1,30 @@
+/**
+ * @swagger
+ * /send_group_msg:
+ *   post:
+ *     summary: Send a message to a group
+ *     tags: [GroupChat]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               groupId:
+ *                 type: string
+ *               message:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Group message sent
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import { GroupChat } from "../../../models/chats/groupChat.js";
 import { Group } from "../../../models/chats/group.js";

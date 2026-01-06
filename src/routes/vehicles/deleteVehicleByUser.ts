@@ -1,3 +1,22 @@
+/**
+ * @openapi
+ * /delete_vehicle/{vehicleId}:
+ *   delete:
+ *     tags:
+ *       - Vehicle
+ *     summary: Delete a vehicle
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: vehicleId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Vehicle deleted
+ */
 import { getSocket } from "../../config/connection.js";
 import type { VehicleEditParams } from "../../interface/interface.js";
 import { User } from "../../models/users/user.js";

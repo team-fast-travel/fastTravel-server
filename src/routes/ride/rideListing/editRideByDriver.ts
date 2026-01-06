@@ -1,3 +1,34 @@
+/**
+ * @swagger
+ * /edit_ride/{rideId}:
+ *   put:
+ *     summary: Edit a ride listing
+ *     tags: [Ride]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: rideId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ride ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Ride updated
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Ride not found
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import type { RideEditParams } from "../../../interface/interface.js";
 import { Ride } from "../../../models/ride/ride.js";

@@ -1,3 +1,19 @@
+/**
+ * @swagger
+ * /fetch_grp:
+ *   get:
+ *     summary: Fetch groups for which user is admin
+ *     tags: [Group]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Groups list
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 import { Group } from "../../../models/chats/group.js";
 import type { Request, Response } from "express";
 

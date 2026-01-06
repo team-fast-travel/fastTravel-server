@@ -1,3 +1,30 @@
+/**
+ * @swagger
+ * /create_notification:
+ *   post:
+ *     summary: Create a notification
+ *     tags: [Notification]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               message:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Notification created
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 import { Notification } from "../../../models/users/notification.js";
 import { getSocket } from "../../../config/connection.js";
 import { User } from "../../../models/users/user.js";

@@ -40,6 +40,7 @@ import { cancelBooking } from "./routes/ride/bookingRide/cancelBooking.js";
 // Ride Listing Routes
 import { createRide } from "./routes/ride/rideListing/createRide.js";
 import { fetchRidesByDriver } from "./routes/ride/rideListing/fetchRidesByDriver.js";
+import { fetchAllRides } from "./routes/ride/rideListing/fetchAllRides.js";
 import { editRideByDriver } from "./routes/ride/rideListing/editRideByDriver.js";
 import { deleteRideByDriver } from "./routes/ride/rideListing/deleteRideByDriver.js";
 
@@ -127,6 +128,7 @@ app.delete<BookEditParams>('/cancel_booking/:bookId', authToken, cancelBooking);
 // --------------------
 app.post('/create_ride', authToken, createRide);
 app.get('/fetch_ride', authToken, fetchRidesByDriver);
+app.get('/fetch_all_ride', authToken, fetchAllRides);
 app.put<RideEditParams>('/edit_ride/:rideId', authToken, editRideByDriver);
 app.delete<RideEditParams>('/delete_ride/:rideId', authToken, deleteRideByDriver);
 
@@ -167,8 +169,8 @@ app.get<ReviewEditParams>('/fetch_user_review/:userId', authToken, fetchUserRevi
 app.post('/login', login);
 app.post('/register', register);
 app.get('/fetch_user/:userId', authToken, fetchUser);
-app.put<UserEditParams>('/edit_user/:userId', authToken, editUser);
-app.delete<UserEditParams>('/delete_user/:userId', authToken, deleteUser);
+app.put<UserEditParams>('/edit_user', authToken, editUser);
+app.delete<UserEditParams>('/delete_user', authToken, deleteUser);
 
 // --------------------
 // VEHICLE

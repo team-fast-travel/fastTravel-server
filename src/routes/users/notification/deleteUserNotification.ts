@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ * /delete_notification/{notificationId}:
+ *   delete:
+ *     summary: Delete a user notification
+ *     tags: [Notification]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: notificationId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The notification ID
+ *     responses:
+ *       200:
+ *         description: Notification deleted
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Notification not found
+ *       500:
+ *         description: Server error
+ */
 import { Notification } from "../../../models/users/notification.js";
 import { getSocket } from "../../../config/connection.js";
 import { User } from "../../../models/users/user.js";

@@ -1,3 +1,22 @@
+/**
+ * @openapi
+ * /edit_user:
+ *   put:
+ *     tags:
+ *       - User
+ *     summary: Edit authenticated user's profile
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: User updated
+ */
 import { getSocket } from "../../../config/connection.js";
 import { hashPwd } from "../../../middleware/comparePwd.js";
 import { generateToken } from "../../../middleware/generateToken.js";
@@ -33,10 +52,11 @@ export const editUser = async (req: Request<{}, any, BodyParam>, res: Response) 
 
         // Emit socket
         const io = getSocket();
-        io?.to(userId.toString()).emit("user_updated");
+        io?.to(userId.toString()).emit("user_updated", user);
 
         return res.status(200).json({
             message: "User updated successfully",
+            data: user
         });
     } catch (error) {
         return res.status(500).json({

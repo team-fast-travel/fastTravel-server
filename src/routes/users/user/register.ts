@@ -1,3 +1,29 @@
+/**
+ * @openapi
+ * /register:
+ *   post:
+ *     tags:
+ *       - User
+ *     summary: Register a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: User registered
+ */
 import { hashPwd } from "../../../middleware/comparePwd.js";
 import { generateToken } from "../../../middleware/generateToken.js";
 import { User } from "../../../models/users/user.js";

@@ -1,3 +1,34 @@
+/**
+ * @swagger
+ * /edit_card/{cardId}:
+ *   put:
+ *     summary: Edit a payment card
+ *     tags: [Card]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: cardId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The card ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Card updated
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Card not found
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import type { CardEditParams } from "../../../interface/interface.js";
 import { Card } from "../../../models/users/cards.js";

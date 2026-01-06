@@ -1,3 +1,19 @@
+/**
+ * @swagger
+ * /fetch_address:
+ *   get:
+ *     summary: Fetch addresses for authenticated user
+ *     tags: [Address]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User addresses
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 import { Address } from "../../../models/users/address.js";
 import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";

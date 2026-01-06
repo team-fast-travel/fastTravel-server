@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ * /leave_grp/{groupId}:
+ *   put:
+ *     summary: Leave a group
+ *     tags: [Group]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: groupId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The group ID
+ *     responses:
+ *       200:
+ *         description: Left group
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Group not found
+ *       500:
+ *         description: Server error
+ */
 import { Group } from "../../../models/chats/group.js";
 import { getSocket } from "../../../config/connection.js";
 import type { Request, Response } from "express";

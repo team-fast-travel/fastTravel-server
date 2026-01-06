@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ * /delete_card/{cardId}:
+ *   delete:
+ *     summary: Delete a payment card
+ *     tags: [Card]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: cardId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The card ID
+ *     responses:
+ *       200:
+ *         description: Card deleted
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Card not found
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import type { CardEditParams } from "../../../interface/interface.js";
 import { Card } from "../../../models/users/cards.js";

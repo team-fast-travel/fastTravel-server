@@ -1,3 +1,27 @@
+/**
+ * @openapi
+ * /create_vehicle:
+ *   post:
+ *     tags:
+ *       - Vehicle
+ *     summary: Create a vehicle for the authenticated user
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               carName:
+ *                 type: string
+ *               plateNumber:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Vehicle created
+ */
 import { getSocket } from "../../config/connection.js";
 import { User } from "../../models/users/user.js";
 import type { Request, Response } from "express";

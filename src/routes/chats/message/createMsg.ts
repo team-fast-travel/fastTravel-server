@@ -1,3 +1,30 @@
+/**
+ * @swagger
+ * /create_msg:
+ *   post:
+ *     summary: Create a one-to-one message
+ *     tags: [Chat]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               receiver:
+ *                 type: string
+ *               message:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Message created
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import { Chat } from "../../../models/chats/chat.js";
 import { User } from "../../../models/users/user.js";

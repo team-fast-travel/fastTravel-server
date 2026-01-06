@@ -1,3 +1,34 @@
+/**
+ * @swagger
+ * /edit_address/{addressId}:
+ *   put:
+ *     summary: Edit an address
+ *     tags: [Address]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: addressId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The address ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Address updated
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Address not found
+ *       500:
+ *         description: Server error
+ */
 import { getSocket } from "../../../config/connection.js";
 import type { AddressEditParams } from "../../../interface/interface.js";
 import { Address } from "../../../models/users/address.js";

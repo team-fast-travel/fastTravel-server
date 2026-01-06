@@ -1,3 +1,19 @@
+/**
+ * @swagger
+ * /fetch_card:
+ *   get:
+ *     summary: Fetch payment cards for authenticated user
+ *     tags: [Card]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of cards
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 import { Card } from "../../../models/users/cards.js";
 import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";

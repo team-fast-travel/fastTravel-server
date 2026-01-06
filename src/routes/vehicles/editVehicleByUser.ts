@@ -1,3 +1,28 @@
+/**
+ * @openapi
+ * /edit_vehicle/{vehicleId}:
+ *   put:
+ *     tags:
+ *       - Vehicle
+ *     summary: Edit a vehicle
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: vehicleId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Vehicle updated
+ */
 import { getSocket } from "../../config/connection.js";
 import type { VehicleEditParams } from "../../interface/interface.js";
 import { Vehicle } from "../../models/vehicle/vehicle.js";

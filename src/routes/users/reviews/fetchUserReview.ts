@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ * /fetch_user_review/{userId}:
+ *   get:
+ *     summary: Fetch reviews for a user
+ *     tags: [Reviews]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: User reviews
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Server error
+ */
 import type { ReviewEditParams } from "../../../interface/interface.js";
 import { Reviews } from "../../../models/users/reviews.js";
 import { User } from "../../../models/users/user.js";

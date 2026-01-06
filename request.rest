@@ -11,3 +11,12 @@ Content-Type: application/json
     "province": "Saskatchewan",
     "city": "Regina"
 }
+
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "akalmin247@gmail.com",
+    "password": "Mishima247"
+}
