@@ -5,6 +5,7 @@ export interface BookRideDocument extends Document {
     bookerId: mongoose.Types.ObjectId;
     pickup_address: string;
     drop_off_address: string;
+    bookStatus: "Active" | "Complete" | "Rebook" | "Cancelled";
 }
 
 const bookRideSchema = new Schema<BookRideDocument>({
@@ -24,6 +25,11 @@ const bookRideSchema = new Schema<BookRideDocument>({
     },
     drop_off_address: {
         type: String,
+    },
+    bookStatus: {
+        type: String,
+        enum: ["Active", "Complete", "Rebook", "Cancelled"],
+        default: "Active"
     }
 }, { timestamps: true });
 

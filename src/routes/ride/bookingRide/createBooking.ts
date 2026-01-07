@@ -74,6 +74,7 @@ export const createBooking = async (req: Request<{}, any, BodyRequest>, res: Res
             bookerId,
             pickup_address,
             drop_off_address,
+            bookStatus: "Active"
         });
 
         // Emit socket

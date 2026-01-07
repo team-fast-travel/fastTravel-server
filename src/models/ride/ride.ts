@@ -11,7 +11,12 @@ export interface RideDocument extends Document {
     departure_date: string;
     departure_time: string;
     route_type: "Fixed" | "Flexible";
-    status: 'Static' | 'In progress' | 'Active' | 'Completed'
+    seats: {
+        front: number;
+        middle: number;
+        back: number;
+    };
+    status: 'Static' | 'In progress' | 'Active' | 'Completed';
 }
 
 const rideSchema = new Schema<RideDocument>(
@@ -58,6 +63,29 @@ const rideSchema = new Schema<RideDocument>(
             type: String,
             enum: ["Fixed", "Flexible"],
             required: true,
+        },
+        seats: {
+            front: {
+                type: Number,
+                min: 0,
+                max: 2,
+                required: true,
+                default: 1,
+            },
+            middle: {
+                type: Number,
+                min: 0,
+                max: 3,
+                required: true,
+                default: 2,
+            },
+            back: {
+                type: Number,
+                min: 0,
+                max: 3,
+                required: true,
+                default: 0,
+            },
         },
         status: {
             type: String,

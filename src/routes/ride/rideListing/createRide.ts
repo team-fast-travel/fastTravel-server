@@ -46,6 +46,11 @@ interface BodyRequest {
     departure_date: string;
     departure_time: string;
     route_type: string;
+    seats?: {
+        front: number;
+        middle: number;
+        back: number;
+    };
     status: 'Static' | 'In progress' | 'Active' | 'Completed';
 }
 
@@ -62,6 +67,7 @@ export const createRide = async (req: Request<{}, any, BodyRequest>, res: Respon
         departure_date,
         departure_time,
         route_type,
+        seats,
         status,
     } = req.body;
 
@@ -78,6 +84,29 @@ export const createRide = async (req: Request<{}, any, BodyRequest>, res: Respon
             message: "Vehicle not found"
         });
 
+        // -----------------------
+        // Seats validation
+        // -----------------------
+        const normalizedSeats = {
+            front: seats?.front ?? 1,
+            middle: seats?.middle ?? 2,
+            back: seats?.back ?? 0,
+        };
+
+        // enforce limits (same as schema)
+        if (
+            normalizedSeats.front < 0 ||
+            normalizedSeats.front > 2 ||
+            normalizedSeats.middle < 0 ||
+            normalizedSeats.middle > 3 ||
+            normalizedSeats.back < 0 ||
+            normalizedSeats.back > 3
+        ) {
+            return res.status(400).json({
+                message: "Seat counts are out of allowed range",
+            });
+        }
+
         // create ride
         const ride = await Ride.create({
             driverId,
@@ -90,6 +119,7 @@ export const createRide = async (req: Request<{}, any, BodyRequest>, res: Respon
             departure_date,
             departure_time,
             route_type,
+            seats: normalizedSeats,
             status,
         });
 
