@@ -36,7 +36,7 @@ import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";
 
 export const editCardByUser = async (req: Request<CardEditParams>, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { cardId } = req.params;
 
     if (!cardId) {

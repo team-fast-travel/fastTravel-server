@@ -24,7 +24,7 @@ import type { Request, Response } from "express";
 import { Vehicle } from "../../models/vehicle/vehicle.js";
 
 export const deleteVehicleByUser = async (req: Request<VehicleEditParams>, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { vehicleId } = req.params;
 
     if(!vehicleId) {

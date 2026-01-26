@@ -39,7 +39,7 @@ interface BodyRequest {
 
 // Request<Params, ResBody, ReqBody>
 export const createMsg = async (req: Request<{}, any, BodyRequest>, res: Response) => {
-  const sender = req.user.id;
+  const sender = req.user.userId;
   const { receiver, messageType, message, fileUrl } = req.body;
 
   if (!receiver || !messageType) {

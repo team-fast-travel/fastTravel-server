@@ -17,6 +17,8 @@ import { authToken } from "./middleware/authToken.js";
 import { createMsg } from "./routes/chats/message/createMsg.js";
 import { deleteMsgBtwSenders } from "./routes/chats/message/deleteMsgBtwSenders.js";
 import { fetchMsgBtwSenders } from "./routes/chats/message/fetchMsgBtwSenders.js";
+import { fetchAllMsgsForSender } from "./routes/chats/message/fetchAllMsgsForSender.js";
+import { markChatRead } from "./routes/chats/message/markChatRead.js";
 
 // Group Chat Routes
 import { sendGroupMsg } from "./routes/chats/groupChat/sendGroupMsg.js";
@@ -74,12 +76,29 @@ import { fetchUser } from "./routes/users/user/fetchUser.js";
 import { editUser } from "./routes/users/user/editUser.js";
 import { deleteUser } from "./routes/users/user/deleteUser.js";
 
+// Change/Forget Password, Send Verification code and Verify Email
+import { changePassword } from "./routes/users/logUser/changePassword.js";
+import { forgetPassword } from "./routes/users/logUser/forgetPassword.js";
+import { sendVerificationCode } from "./routes/users/logUser/sendVerificationCode.js";
+import { verifyEmail } from "./routes/users/logUser/verifyEmail.js";
+
 // Vehicles
-import { createVehicleByUser } from "./routes/vehicles/createVehicleByUser.js";
+import { createVehicleByUser, uploadVehicleImage } from "./routes/vehicles/createVehicleByUser.js";
 import { fetchVehicleById } from "./routes/vehicles/fetchVehicleById.js";
 import { fetchVehicleByUser } from "./routes/vehicles/fetchVehicleByUser.js";
 import { editVehicleByUser } from "./routes/vehicles/editVehicleByUser.js";
 import { deleteVehicleByUser } from "./routes/vehicles/deleteVehicleByUser.js";
+
+// Search rides
+import { searchRides } from "./routes/ride/searchRide/searchRides.js";
+
+// Profile
+import { createProfile, uploadProfileImage } from "./routes/users/profile/createProfile.js";
+import { deleteProfile } from "./routes/users/profile/deleteProfile.js";
+
+// Preferences
+import { createPreference } from "./routes/users/preferences/createPreference.js";
+import { fetchUserPreference } from "./routes/users/preferences/fetchUserPreference.js";
 
 const app = express();
 
@@ -96,6 +115,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // --------------------
 app.post('/create_msg', authToken, createMsg);
 app.get<MsgFetchParams>('/get_msg/:senderId/:receiverId', authToken, fetchMsgBtwSenders);
+app.get('/chats/list', authToken, fetchAllMsgsForSender);
+app.put('/mark_chat_read/:receiverId', authToken, markChatRead);
 app.delete<MsgDeleteParams>('/delete_msg/:messageId/:otherUserId', authToken, deleteMsgBtwSenders);
 
 // --------------------
@@ -161,7 +182,7 @@ app.put('/mark_all_notification_read', authToken, markAllNotificationsAsRead);
 // REVIEWS
 // --------------------
 app.post('/create_review', authToken, createReview);
-app.get<ReviewEditParams>('/fetch_user_review/:userId', authToken, fetchUserReviews)
+app.get<ReviewEditParams>('/fetch_user_review/:reviewedId', authToken, fetchUserReviews)
 
 // --------------------
 // USER
@@ -173,13 +194,42 @@ app.put<UserEditParams>('/edit_user', authToken, editUser);
 app.delete<UserEditParams>('/delete_user', authToken, deleteUser);
 
 // --------------------
+// CHANGE AND FORGET PASWORD
+// --------------------
+app.post('/forget_password', authToken, forgetPassword);
+app.put('/change_password', authToken, changePassword);
+
+// --------------------
+// SEND VERIFICATION CODE AND VERIFY EMAIL
+// --------------------
+app.post('/send_verification_code', sendVerificationCode);
+app.post('/verify_email', verifyEmail)
+
+// --------------------
 // VEHICLE
 // --------------------
-app.post('/create_vehicle', authToken, createVehicleByUser);
+app.post('/create_vehicle', authToken, uploadVehicleImage, createVehicleByUser);
 app.get<VehicleEditParams>('/fetch_vehicle/:vehicleId', authToken, fetchVehicleById);
-app.get('/fetch_vehicles_by_user/:userId', authToken, fetchVehicleByUser);
+app.get('/fetch_vehicles_by_user', authToken, fetchVehicleByUser);
 app.put<VehicleEditParams>('/edit_vehicle/:vehicleId', authToken, editVehicleByUser);
 app.delete<VehicleEditParams>('/delete_vehicle/:vehicleId', authToken, deleteVehicleByUser);
+
+// --------------------
+// SEARCH RIDES
+// --------------------
+app.get('/search_rides', authToken, searchRides);
+
+// --------------------
+// PROFILE
+// --------------------
+app.post('/create_profile', authToken, uploadProfileImage, createProfile);
+app.delete('/delete_profile/:profileId', authToken, deleteProfile);
+
+// --------------------
+// PREFERENCE
+// --------------------
+app.post('/create_preference', authToken, createPreference);
+app.get('/fetch_preference', authToken, fetchUserPreference);
 
 // start server + DB connection
 connection({

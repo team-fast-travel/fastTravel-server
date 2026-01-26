@@ -43,7 +43,7 @@ interface BodyRequest {
 }
 
 export const createBooking = async (req: Request<{}, any, BodyRequest>, res: Response) => {
-    const bookerId = req.user.id;
+    const bookerId = req.user.userId;
 
     const {
         rideId,

@@ -19,7 +19,7 @@ import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";
 
 export const fetchCardByUser = async (req: Request, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     try {
         // Ensure rider exists

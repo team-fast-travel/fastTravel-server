@@ -39,7 +39,7 @@ interface BodyRequest {
 }
 
 export const sendGroupMsg = async (req: Request<{}, any, BodyRequest>, res: Response) => {
-  const sender = req.user.id;
+  const sender = req.user.userId;
   const { groupId, messageType, message, fileUrl } = req.body;
 
   if (!groupId || !messageType) {

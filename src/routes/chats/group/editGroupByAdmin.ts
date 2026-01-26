@@ -44,7 +44,7 @@ interface BodyRequest {
 }
 
 export const editGroupByAdmin = async (req: Request<GrpFetchParams, any, BodyRequest>, res: Response) => {
-    const adminId = req.user.id;
+    const adminId = req.user.userId;
     const { groupId } = req.params;
     const { groupName, bio } = req.body;
 

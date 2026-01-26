@@ -40,7 +40,7 @@ interface ReviewBody {
 }
 
 export const createReview = async (req: Request<{}, any, ReviewBody>, res: Response) => {
-    const reviewerId = req.user.id;
+    const reviewerId = req.user.userId;
     const { userId, star, comment } = req.body;
 
     // Ensure user and star is submitted
@@ -82,6 +82,9 @@ export const createReview = async (req: Request<{}, any, ReviewBody>, res: Respo
             reviewerId,
             star,
             comment: comment ?? "",
+            likes: 0,
+            dislikes: 0,
+            sentAt: Date.now()
         });
 
         // Emit socket

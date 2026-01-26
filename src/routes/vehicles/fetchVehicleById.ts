@@ -22,7 +22,7 @@ import type { Request, Response } from "express";
 import type { VehicleEditParams } from "../../interface/interface.js";
 
 export const fetchVehicleById = async (req: Request<VehicleEditParams>, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { vehicleId } = req.params;
 
     try {

@@ -37,7 +37,7 @@ import type { Request, Response } from "express";
 
 export const deleteMsgBtwSenders = async (req: Request<MsgDeleteParams>, res: Response) => {
     const { messageId, otherUserId } = req.params;
-    const senderId = req.user.id;
+    const senderId = req.user.userId;
 
     if (!messageId || !otherUserId) {
         return res.status(400).json({

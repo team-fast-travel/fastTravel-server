@@ -5,6 +5,9 @@ export interface ReviewDocument extends Document {
     reviewerId: mongoose.Types.ObjectId;
     star: number;
     comment: string;
+    likes: number;
+    dislikes: number;
+    sentAt: Date;
 }
 
 const reviewSchema = new Schema<ReviewDocument>({
@@ -27,6 +30,18 @@ const reviewSchema = new Schema<ReviewDocument>({
     comment: {
         type: String,
         default: ""
+    },
+    likes: {
+        type: Number,
+        default: 0,
+    },
+    dislikes: {
+        type: Number,
+        default: 0,
+    },
+    sentAt: {
+        type: Date,
+        default: Date.now
     }
 }, { timestamps: true })
 

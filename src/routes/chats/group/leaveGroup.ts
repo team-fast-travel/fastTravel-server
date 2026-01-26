@@ -29,7 +29,7 @@ import type { Request, Response } from "express";
 import type { GrpFetchParams } from "../../../interface/interface.js";
 
 export const leaveGroup = async (req: Request<GrpFetchParams>, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { groupId } = req.params;
 
     try {

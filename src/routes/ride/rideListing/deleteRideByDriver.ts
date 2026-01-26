@@ -30,7 +30,7 @@ import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";
 
 export const deleteRideByDriver = async (req: Request<RideEditParams>, res: Response) => {
-    const driverId = req.user.id;
+    const driverId = req.user.userId;
     const { rideId } = req.params;
 
     try {

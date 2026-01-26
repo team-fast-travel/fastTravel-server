@@ -18,7 +18,7 @@ import { Group } from "../../../models/chats/group.js";
 import type { Request, Response } from "express";
 
 export const fetchAllGroupByAdmin = async (req: Request, res: Response) => {
-  const adminId = req.user.id;
+  const adminId = req.user.userId;
 
   try {
     const groups = await Group.find({

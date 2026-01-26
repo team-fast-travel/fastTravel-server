@@ -3,19 +3,14 @@ import mongoose, { Schema, type Model, type Document } from "mongoose";
 export interface RideDocument extends Document {
     driverId: mongoose.Types.ObjectId;
     vehicleId: mongoose.Types.ObjectId;
-    picture: string;
     description: string;
+    price: number;
     start_location: string;
     drop_off: string;
     final_end_location: string;
     departure_date: string;
     departure_time: string;
     route_type: "Fixed" | "Flexible";
-    seats: {
-        front: number;
-        middle: number;
-        back: number;
-    };
     status: 'Static' | 'In progress' | 'Active' | 'Completed';
 }
 
@@ -31,12 +26,12 @@ const rideSchema = new Schema<RideDocument>(
             ref: "Vehicle",
             required: true,
         },
-        picture: {
+        description: {
             type: String,
             required: true
         },
-        description: {
-            type: String,
+        price: {
+            type: Number,
             required: true
         },
         start_location: {
@@ -64,32 +59,10 @@ const rideSchema = new Schema<RideDocument>(
             enum: ["Fixed", "Flexible"],
             required: true,
         },
-        seats: {
-            front: {
-                type: Number,
-                min: 0,
-                max: 2,
-                required: true,
-                default: 1,
-            },
-            middle: {
-                type: Number,
-                min: 0,
-                max: 3,
-                required: true,
-                default: 2,
-            },
-            back: {
-                type: Number,
-                min: 0,
-                max: 3,
-                required: true,
-                default: 0,
-            },
-        },
         status: {
             type: String,
-            enum: ['Static', 'In progress', 'Active', 'Completed']
+            enum: ['Static', 'In progress', 'Active', 'Completed'],
+            default: "Static"
         }
     },
     { timestamps: true }

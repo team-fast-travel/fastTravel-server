@@ -22,7 +22,7 @@ import type { Request, Response } from "express";
 import { User } from "../../models/users/user.js";
 
 export const fetchVehicleByUser = async (req: Request, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     try {
         // Ensure user exists
@@ -33,15 +33,16 @@ export const fetchVehicleByUser = async (req: Request, res: Response) => {
             })
         };
 
-        const vehicles = await Vehicle.find({ userId }).sort({
+        const vehicles = await Vehicle.find({ driverId: userId }).sort({
             createdAt: -1,
-        }).populate("userId") || [];
+        }).populate("driverId") || [];
 
         return res.status(200).json({
             message: "Vehicles fetched successfully",
             data: vehicles,
         });
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             error:
                 error instanceof Error ? error.message : "Failed to fetch vehicles",

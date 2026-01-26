@@ -13,7 +13,7 @@ export async function uploadFileToSupabase(
   const filePath = `${folder}/${fileName}`;
 
   const { data, error } = await supabase.storage
-    .from("fastTravel")
+    .from("fast")
     .upload(filePath, file.buffer, {
       contentType: file.mimetype,
       upsert: false,
@@ -26,7 +26,7 @@ export async function uploadFileToSupabase(
 
   // Get public URL
   const { data: publicUrlData } = supabase.storage
-    .from("yumunity")
+    .from("fast")
     .getPublicUrl(filePath);
 
   return publicUrlData.publicUrl;

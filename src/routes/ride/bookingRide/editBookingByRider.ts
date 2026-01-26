@@ -41,7 +41,7 @@ import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";
 
 export const editBookingByRider = async (req: Request<BookEditParams>, res: Response) => {
-    const bookerId = req.user.id;
+    const bookerId = req.user.userId;
     const { bookId } = req.params;
 
     try {

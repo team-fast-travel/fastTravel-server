@@ -19,7 +19,7 @@ import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";
 
 export const fetchUserNotification = async (req: Request, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     try {
         // Ensure user exists

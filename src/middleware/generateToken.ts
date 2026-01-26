@@ -3,8 +3,10 @@ dotenv.config();
 import jwt from "jsonwebtoken";
 
 export const generateToken = (userId: string) => {
-  console.log("TOKEN IS:", process.env.TOKEN);
-  return jwt.sign({ userId }, process.env.TOKEN, { expiresIn: '15min' });
+  const token = jwt.sign({ userId }, process.env.TOKEN, { expiresIn: '7d' });
+  console.log("JWT ISSUED:", token);
+
+  return token;
 }
 
 export const generateRefreshToken = (userId: string) => {

@@ -30,7 +30,7 @@ import type { Request, Response } from "express";
 import type { NotificationEditParams } from "../../../interface/interface.js";
 
 export const deleteUserNotification = async (req: Request<NotificationEditParams>, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { notificationId } = req.params;
 
     try {

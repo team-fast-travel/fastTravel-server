@@ -27,9 +27,11 @@ import type { ReviewEditParams } from "../../../interface/interface.js";
 import { Reviews } from "../../../models/users/reviews.js";
 import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";
+import mongoose from "mongoose";
 
 export const fetchUserReviews = async (req: Request<ReviewEditParams>, res: Response) => {
-    const { userId } = req.params;
+    const userId = req.user.userId;
+    const { reviewedId } = req.params;
 
     if (!userId) {
         return res.status(400).json({
@@ -46,9 +48,11 @@ export const fetchUserReviews = async (req: Request<ReviewEditParams>, res: Resp
             })
         };
 
-        const reviews = await Reviews.find({ userId })
+        const currentDriverId = new mongoose.Types.ObjectId(reviewedId);
+        
+        const reviews = await Reviews.find({ userId: currentDriverId })
             .populate("userId").populate("reviewerId")
-            .sort({ createdAt: -1 });
+            .sort({ createdAt: -1 }) || [];
 
         return res.status(200).json({
             message: "Reviews fetched successfully",

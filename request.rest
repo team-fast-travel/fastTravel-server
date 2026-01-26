@@ -17,6 +17,59 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email": "akalmin247@gmail.com",
+    "email": "blackcyberdigital@gmail.com",
     "password": "Mishima247"
 }
+
+###
+POST http://localhost:5000/create_address
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVjMzBmYTJmYTZjNDI0NzNkNGU1MWQiLCJpYXQiOjE3NjgwNzYyMTMsImV4cCI6MTc2ODA3NzExM30.7zyLVL20UddKIDxSdzlx-aJmTfvnd-gPJaheA5C8pQY
+
+{
+    "title": "Home",
+    "address": "123 Main Street",
+    "province": "Ontario",
+    "city": "Toronto",
+    "postal_code": "M5V 2T6"
+}
+
+###
+GET http://localhost:5000/fetch_card
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVjMzBmYTJmYTZjNDI0NzNkNGU1MWQiLCJpYXQiOjE3NjgwODc1ODAsImV4cCI6MTc2ODA4ODQ4MH0.OhRnfGBi5kfnAoeQlXQBx1vgnzImRU6PJoHcq5mVAMo
+
+###
+GET http://localhost:5000/search_rides?from=Ontario&to=Winipeg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVjMzBmYTJmYTZjNDI0NzNkNGU1MWQiLCJpYXQiOjE3Njg1MDM1OTgsImV4cCI6MTc2ODUwNDQ5OH0.4HusNs0AtV5K7TPxPSwbkky5EntV1nVZ9k9dqRdr1Eg
+
+###
+PUT http://localhost:5000/mark_chat_read/695c30fa2fa6c42473d4e51d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVjMzBmYTJmYTZjNDI0NzNkNGU1MWQiLCJpYXQiOjE3Njg1ODcxNDMsImV4cCI6MTc2ODU4ODA0M30.j5VLhrmjBF-LCN3XqAfzVpvXakUXAJM5qpwu9z-NPxM
+
+###
+POST http://localhost:5000/create_vehicle
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTZhOThkNGU4ODM5ZDBmZDI3ZTEzZTgiLCJpYXQiOjE3NjkwNDY2MDQsImV4cCI6MTc2OTA0NzUwNH0.xBDSCVWnd7x4FUEAmHkXPJDbFYT0RdhOZeZSxtGG0ng
+
+{
+  "carModel": "Accord",
+  "carName": "Honda",
+  "carType": "Sedan",
+  "color": "Black",
+  "plateNumber": "SKS-247",
+  "seats": {
+    "back_seat": "3",
+    "front_seat": "2",
+    "middle_seat": "2"
+  },
+  "vehicleFeatures": [
+    "Air Conditioning",
+    "Heated Seats",
+    "Bluetooth"
+  ],
+  "vin": "12345678901234567",
+  "year": 2023
+}
+
+###
+GET http://localhost:5000/search_rides?from=Regina&to=Toronto
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTZhOThkNGU4ODM5ZDBmZDI3ZTEzZTgiLCJpYXQiOjE3NjkzNTYxMTgsImV4cCI6MTc2OTM1NzAxOH0.4umUkm0r2MHja6Ya3ne_2RAmnz0lLuW3BlcVK_j7ZPQ

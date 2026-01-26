@@ -29,7 +29,7 @@ import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";
 
 export const deleteAddressByUser = async (req: Request<{addressId: string}>, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { addressId } = req.params;
 
     if(!addressId) {

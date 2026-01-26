@@ -36,7 +36,7 @@ import { getSocket } from "../../../config/connection.js";
 import type { GrpDeleteParams } from "../../../interface/interface.js";
 
 export const deleteGroupMsg = async (req: Request<GrpDeleteParams>, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { messageId, groupId } = req.params;
 
     if (!messageId || !groupId) {

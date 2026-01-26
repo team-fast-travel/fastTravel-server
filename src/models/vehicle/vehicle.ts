@@ -18,6 +18,7 @@ export interface VehicleDocument extends Document {
     vehiclePhoto: string;
     seats: RideSeats;
     vehicleFeatures: string[];
+    status: 'Not verified' | 'Under review' | 'Verified';
 }
 
 const vehicleSchema = new Schema<VehicleDocument>(
@@ -80,6 +81,11 @@ const vehicleSchema = new Schema<VehicleDocument>(
             type: String,
             required: false
         }],
+        status: {
+            type: String,
+            enum: ['Not verified', 'Under review', 'Verified'],
+            default: 'Not verified'
+        }
     },
     { timestamps: true }
 );

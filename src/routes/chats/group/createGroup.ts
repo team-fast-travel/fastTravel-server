@@ -36,7 +36,7 @@ interface BodyRequest {
 }
 
 export const createGroup = async (req: Request<{}, any, BodyRequest>, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { groupName, bio } = req.body;
 
     if (!groupName || !bio) {

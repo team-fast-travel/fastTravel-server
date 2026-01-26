@@ -30,7 +30,7 @@ import { User } from "../../models/users/user.js";
 import type { Request, Response } from "express";
 
 export const editVehicleByUser = async (req: Request<VehicleEditParams>, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { vehicleId } = req.params;
 
     if (!vehicleId) {

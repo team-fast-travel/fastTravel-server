@@ -29,7 +29,7 @@ import type { Request, Response } from "express";
 import type { GrpFetchParams } from "../../../interface/interface.js";
 
 export const deleteGroupByAdmin = async (req: Request<GrpFetchParams>, res: Response) => {
-    const adminId = req.user.id;
+    const adminId = req.user.userId;
     const { groupId } = req.params;
 
     try {

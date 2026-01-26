@@ -37,7 +37,7 @@ interface CardBody {
 }
 
 export const createCard = async (req: Request<{}, any, CardBody>, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { card_no, card_cvv, card_date, card_first_name, card_last_name } = req.body;
 
     if (!card_no || !card_cvv || !card_date || !card_first_name || !card_last_name) {

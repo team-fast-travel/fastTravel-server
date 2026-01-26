@@ -43,7 +43,7 @@ interface AddressBody {
 }
 
 export const createAddress = async (req: Request<{}, any, AddressBody>, res: Response) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { title, address, province, city, postal_code } = req.body;
 
     if (!title || !address || !province || !city || !postal_code) {
@@ -55,7 +55,7 @@ export const createAddress = async (req: Request<{}, any, AddressBody>, res: Res
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({
-                message: "User not found"
+                message: `User not found ${userId}`
             })
         };
 
