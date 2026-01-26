@@ -234,5 +234,5 @@ app.get('/fetch_preference', authToken, fetchUserPreference);
 // start server + DB connection
 connection({
   app,
-  port: Number(process.env.PORT) || 5000,
+  port: Number(process.env.PORT) ?? 5000,
 });
