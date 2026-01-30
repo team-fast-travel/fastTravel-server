@@ -78,6 +78,7 @@
  */
 
 import { Ride } from "../../../models/ride/ride.js";
+import { BookRide } from "../../../models/ride/bookRide.js";
 import { Reviews } from "../../../models/users/reviews.js";
 import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";
@@ -116,14 +117,33 @@ export const fetchRidesByDriver = async (req: Request, res: Response) => {
 
         ratingData.averageRating = Math.round(ratingData.averageRating * 10) / 10;
 
-        const data = rides.map((ride) => ({
-            ...ride.toObject(),
-            driverReview: ratingData,
-        }));
+        const data = rides.map(async (ride) => {
+            // Fetch bookings for this ride with user details
+            const bookings = await BookRide.find({ rideId: ride._id })
+                .populate("bookerId")
+                .sort({ createdAt: -1 });
+
+            return {
+                ...ride.toObject(),
+                driverReview: ratingData,
+                bookings: bookings.map(booking => ({
+                    _id: booking._id,
+                    bookerId: booking.bookerId,
+                    pickup_address: booking.pickup_address,
+                    drop_off_address: booking.drop_off_address,
+                    seat: booking.seat,
+                    accepted: booking.accepted,
+                    bookStatus: booking.bookStatus,
+                })),
+            };
+        });
+
+        // Wait for all async operations to complete
+        const ridesWithBookings = await Promise.all(data);
 
         return res.status(200).json({
             message: "Rides fetched successfully",
-            data,
+            data: ridesWithBookings,
         });
     } catch (error) {
         return res.status(500).json({

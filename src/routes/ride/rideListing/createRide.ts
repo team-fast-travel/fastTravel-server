@@ -76,6 +76,14 @@ export const createRide = async (req: Request<{}, any, BodyRequest>, res: Respon
             message: "Vehicle not found"
         });
 
+        // Initialize available seats based on vehicle capacity
+        // Front seat: max 2 total, 1 for driver, so 1 available for passengers
+        // Middle and back seats: based on vehicle configuration
+        const availableSeats = {
+            front: 1, // Always 1 available for passengers (driver takes 1)
+            middle: vehicle.seats.middle_seat || 0,
+            back: vehicle.seats.back_seat || 0
+        };
 
         // create ride
         const ride = await Ride.create({
@@ -89,6 +97,7 @@ export const createRide = async (req: Request<{}, any, BodyRequest>, res: Respon
             departure_date,
             departure_time,
             route_type,
+            availableSeats,
         });
 
         // Emit socket

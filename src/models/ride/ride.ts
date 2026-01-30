@@ -1,5 +1,17 @@
 import mongoose, { Schema, type Model, type Document } from "mongoose";
 
+export interface RideSeats {
+    front: number;
+    middle: number;
+    back: number;
+}
+
+export interface BookedSeat {
+    seatType: 'front' | 'middle' | 'back';
+    seatIndex: number;
+    bookingId: mongoose.Types.ObjectId;
+}
+
 export interface RideDocument extends Document {
     driverId: mongoose.Types.ObjectId;
     vehicleId: mongoose.Types.ObjectId;
@@ -12,6 +24,8 @@ export interface RideDocument extends Document {
     departure_time: string;
     route_type: "Fixed" | "Flexible";
     status: 'Static' | 'In progress' | 'Active' | 'Completed';
+    availableSeats: RideSeats;
+    bookedSeats: BookedSeat[];
 }
 
 const rideSchema = new Schema<RideDocument>(
@@ -63,7 +77,42 @@ const rideSchema = new Schema<RideDocument>(
             type: String,
             enum: ['Static', 'In progress', 'Active', 'Completed'],
             default: "Static"
-        }
+        },
+        availableSeats: {
+            front: {
+                type: Number,
+                default: 1, // Only 1 available for passengers (driver takes 1)
+                min: 0
+            },
+            middle: {
+                type: Number,
+                default: 0,
+                min: 0
+            },
+            back: {
+                type: Number,
+                default: 0,
+                min: 0
+            }
+        },
+        bookedSeats: [
+            {
+                seatType: {
+                    type: String,
+                    enum: ['front', 'middle', 'back'],
+                    required: true
+                },
+                seatIndex: {
+                    type: Number,
+                    required: true
+                },
+                bookingId: {
+                    type: Schema.Types.ObjectId,
+                    ref: "BookRide",
+                    required: true
+                }
+            }
+        ]
     },
     { timestamps: true }
 );

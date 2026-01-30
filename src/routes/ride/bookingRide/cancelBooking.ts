@@ -26,6 +26,7 @@
 import { getSocket } from "../../../config/connection.js";
 import type { BookEditParams } from "../../../interface/interface.js";
 import { BookRide } from "../../../models/ride/bookRide.js";
+import { Ride } from "../../../models/ride/ride.js";
 import { User } from "../../../models/users/user.js";
 import type { Request, Response } from "express";
 
@@ -51,6 +52,25 @@ export const cancelBooking = async (req: Request<BookEditParams>, res: Response)
         };
 
         await BookRide.findByIdAndDelete(bookId);
+
+        // Restore seats to the ride
+        const ride = await Ride.findById(bookRide.rideId);
+        if (ride) {
+            const updatedAvailableSeats = { ...ride.availableSeats };
+            if (bookRide.seat.seatType === 'front') {
+                updatedAvailableSeats.front += bookRide.seat.indices.length;
+            } else if (bookRide.seat.seatType === 'middle') {
+                updatedAvailableSeats.middle += bookRide.seat.indices.length;
+            } else if (bookRide.seat.seatType === 'back') {
+                updatedAvailableSeats.back += bookRide.seat.indices.length;
+            }
+
+            // Remove booked seat records for this booking
+            await Ride.findByIdAndUpdate(bookRide.rideId, {
+                availableSeats: updatedAvailableSeats,
+                $pull: { bookedSeats: { bookingId: bookId } }
+            });
+        }
 
         // Emit socket
         const io = getSocket();

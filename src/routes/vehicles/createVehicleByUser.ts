@@ -85,6 +85,7 @@ import { getSocket } from "../../config/connection.js";
 import { User } from "../../models/users/user.js";
 import type { Request, Response } from "express";
 import { Vehicle, type VehicleDocument } from "../../models/vehicle/vehicle.js";
+import type { CarFeature } from "../../models/users/preferences.js";
 import multer from "multer";
 import { supabase } from "../../config/supabaseConfig.js";
 
@@ -110,7 +111,7 @@ export const createVehicleByUser = async (req: Request<{}, any, VehicleDocument>
     const userId = req.user.userId;
     const { carName, carType, carModel, year, color, plateNumber, vin } = req.body;
     const seats = parseJsonField<Seats>(req.body.seats, { front_seat: "", middle_seat: "", back_seat: "" });
-    const vehicleFeatures = parseJsonField<string[]>(req.body.vehicleFeatures, []);
+    const vehicleFeatures = parseJsonField<CarFeature[]>(req.body.vehicleFeatures, []);
 
     const vehiclePhoto = req.file;
 
@@ -123,6 +124,21 @@ export const createVehicleByUser = async (req: Request<{}, any, VehicleDocument>
     }
     if (!seats?.front_seat || !seats?.middle_seat || !seats?.back_seat) {
         return res.status(400).json({ message: "Seats are required" });
+    }
+
+    // Convert string seat values to numbers for the Vehicle model
+    const seatsAsNumbers = {
+        front_seat: parseInt(seats.front_seat, 10),
+        middle_seat: parseInt(seats.middle_seat, 10),
+        back_seat: parseInt(seats.back_seat, 10)
+    };
+
+    // Validate that seat values are valid numbers
+    if (isNaN(seatsAsNumbers.front_seat) || isNaN(seatsAsNumbers.middle_seat) || isNaN(seatsAsNumbers.back_seat)) {
+        return res.status(400).json({ message: "Seat values must be valid numbers" });
+    }
+    if (seatsAsNumbers.front_seat < 1 || seatsAsNumbers.middle_seat < 0 || seatsAsNumbers.back_seat < 0) {
+        return res.status(400).json({ message: "Invalid seat configuration" });
     }
 
     try {
@@ -167,7 +183,7 @@ export const createVehicleByUser = async (req: Request<{}, any, VehicleDocument>
                 vin,
                 vehicleFeatures,
                 vehiclePhoto: publicUrl,
-                seats,
+                seats: seatsAsNumbers,
                 status: 'Under review'
             }
         );

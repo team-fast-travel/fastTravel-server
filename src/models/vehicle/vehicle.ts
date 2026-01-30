@@ -1,9 +1,10 @@
 import mongoose, { Schema, type Document, type Model } from "mongoose";
+import type { CarFeature } from "../users/preferences.js";
 
 interface RideSeats {
-    front_seat: string;
-    back_seat: string;
-    middle_seat: string;
+    front_seat: number;
+    back_seat: number;
+    middle_seat: number;
 }
 
 export interface VehicleDocument extends Document {
@@ -17,7 +18,7 @@ export interface VehicleDocument extends Document {
     vin: string;
     vehiclePhoto: string;
     seats: RideSeats;
-    vehicleFeatures: string[];
+    vehicleFeatures: CarFeature[];
     status: 'Not verified' | 'Under review' | 'Verified';
 }
 
@@ -65,22 +66,34 @@ const vehicleSchema = new Schema<VehicleDocument>(
         },
         seats: {
             front_seat: {
-                type: String,
+                type: Number,
                 required: true
             },
             back_seat: {
-                type: String,
+                type: Number,
                 required: true
             },
             middle_seat: {
-                type: String,
+                type: Number,
                 required: true
             },
         },
-        vehicleFeatures: [{
-            type: String,
-            required: false
-        }],
+        vehicleFeatures: {
+            type: [String],
+            enum: [
+                "Air Conditioning",
+                "Heated Seats",
+                "Bluetooth",
+                "Sunroof",
+                "Leather Seats",
+                "USB Charging",
+                "Wi-Fi",
+                "Pet Friendly",
+                "Child Seat",
+                "Music System",
+            ] as CarFeature[],
+            default: [],
+        },
         status: {
             type: String,
             enum: ['Not verified', 'Under review', 'Verified'],

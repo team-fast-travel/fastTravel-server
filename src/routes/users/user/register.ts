@@ -26,13 +26,14 @@
  */
 import { hashPwd } from "../../../middleware/comparePwd.js";
 import { generateToken } from "../../../middleware/generateToken.js";
-import { User } from "../../../models/users/user.js";
+import { User, type TopLanguages } from "../../../models/users/user.js";
 import type { Request, Response } from "express";
 
 interface BodyParam {
     firstName: string;
     lastName: string;
     gender: string;
+    languages: TopLanguages[];
     email: string;
     phone: string;
     password: string;
@@ -41,9 +42,9 @@ interface BodyParam {
 }
 
 export const register = async (req: Request<{}, any, BodyParam>, res: Response) => {
-    const { firstName, lastName, gender, email, phone, password, province, city } = req.body;
+    const { firstName, lastName, gender, email, phone, languages, password, province, city } = req.body;
 
-    if (!firstName || !lastName || !gender || !email || !phone || !password || !province || !city) {
+    if (!firstName || !lastName || !gender || !email || !phone || !languages || !password || !province || !city) {
         return res.status(400).json({
             message: 'Email and Password field are required'
         })
@@ -56,9 +57,10 @@ export const register = async (req: Request<{}, any, BodyParam>, res: Response) 
         }
 
         const user = await User.create({
-            firstName, 
-            lastName, 
+            firstName,
+            lastName,
             gender,
+            languages,
             email,
             phone,
             password: await hashPwd(password),

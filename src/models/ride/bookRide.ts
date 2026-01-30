@@ -5,7 +5,12 @@ export interface BookRideDocument extends Document {
     bookerId: mongoose.Types.ObjectId;
     pickup_address: string;
     drop_off_address: string;
-    bookStatus: "Active" | "Complete" | "Rebook" | "Cancelled";
+    seat: {
+        seatType: 'front' | 'middle' | 'back';
+        indices: number[];  // Specific seat indices booked
+    };
+    accepted: boolean;
+    bookStatus: "Active" | "Under Review" | "Complete" | "Rebook" | "Cancelled" | "Declined";
 }
 
 const bookRideSchema = new Schema<BookRideDocument>({
@@ -25,6 +30,27 @@ const bookRideSchema = new Schema<BookRideDocument>({
     },
     drop_off_address: {
         type: String,
+    },
+    seat: {
+        seatType: {
+            type: String,
+            enum: ['front', 'middle', 'back'],
+            required: true
+        },
+        indices: {
+            type: [Number],
+            required: true,
+            validate: {
+                validator: function(v: number[]) {
+                    return v.length > 0;
+                },
+                message: "At least one seat index must be specified"
+            }
+        }
+    },
+    accepted: {
+        type: Boolean,
+        default: false
     },
     bookStatus: {
         type: String,

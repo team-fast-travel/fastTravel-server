@@ -85,6 +85,9 @@
 import type { Request, Response } from "express";
 import { Ride } from "../../../models/ride/ride.js";
 import { Reviews } from "../../../models/users/reviews.js";
+import { BookRide } from "../../../models/ride/bookRide.js";
+import { Preference } from "../../../models/users/preferences.js";
+import { User } from "../../../models/users/user.js";
 
 const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -103,7 +106,7 @@ export const searchRides = async (req: Request, res: Response) => {
   const toRx = new RegExp(escapeRegExp(to), "i");
 
   try {
-    const [rides, reviewStats] = await Promise.all([
+    const [rides, reviewStats, userPreferences, drivers] = await Promise.all([
       Ride.find({
         status: { $in: ["Static"] },
         $and: [
@@ -129,7 +132,9 @@ export const searchRides = async (req: Request, res: Response) => {
             totalReviews: { $sum: 1 },
           },
         },
-      ])
+      ]),
+      Preference.findOne({ userId }),
+      User.find({})
     ]);
 
     const ratingMap = new Map(
@@ -142,8 +147,16 @@ export const searchRides = async (req: Request, res: Response) => {
       ])
     );
 
-    const data = rides.map((ride) => {
+    // Create a driver map for quick lookup
+    const driverMap = new Map(drivers.map(d => [d._id.toString(), d]));
+
+    const data = rides.map(async (ride) => {
       const driverId = ride.driverId._id.toString();
+
+      // Fetch bookings for this ride with user details
+      const bookings = await BookRide.find({ rideId: ride._id })
+        .populate("bookerId")
+        .sort({ createdAt: -1 });
 
       return {
         ...ride.toObject(),
@@ -151,12 +164,78 @@ export const searchRides = async (req: Request, res: Response) => {
           averageRating: 0,
           totalReviews: 0,
         },
+        bookings: bookings.map(booking => ({
+          _id: booking._id,
+          bookerId: booking.bookerId,
+          pickup_address: booking.pickup_address,
+          drop_off_address: booking.drop_off_address,
+          seat: booking.seat,
+          accepted: booking.accepted,
+          bookStatus: booking.bookStatus,
+        })),
       };
     });
 
+    // Wait for all async operations to complete
+    const ridesWithBookings = await Promise.all(data);
+
+    // Sort rides based on user preferences
+    let sortedRides = ridesWithBookings;
+    if (userPreferences) {
+      const matchingRides = [];
+      const nonMatchingRides = [];
+
+      for (const ride of ridesWithBookings) {
+        const driver = driverMap.get(ride.driverId._id.toString());
+        if (!driver) {
+          nonMatchingRides.push(ride);
+          continue;
+        }
+
+        let isMatch = true;
+
+        // Check driver gender preference
+        if (userPreferences.driverGender !== "both") {
+          if (driver.gender?.toLowerCase() !== userPreferences.driverGender) {
+            isMatch = false;
+          }
+        }
+
+        // Check language preference
+        if (isMatch && userPreferences.language && userPreferences.language.length > 0) {
+          const driverLanguages = driver.languages || [];
+          const hasMatchingLanguage = userPreferences.language.some(lang =>
+            driverLanguages.includes(lang)
+          );
+          if (!hasMatchingLanguage) {
+            isMatch = false;
+          }
+        }
+
+        // Check car features preference
+        if (isMatch && userPreferences.carFeatures && userPreferences.carFeatures.length > 0) {
+          const vehicleFeatures = (ride.vehicleId && typeof ride.vehicleId === 'object') ? (ride.vehicleId as any).vehicleFeatures : [];
+          const hasMatchingFeatures = userPreferences.carFeatures.some(feature =>
+            (vehicleFeatures || []).includes(feature)
+          );
+          if (!hasMatchingFeatures) {
+            isMatch = false;
+          }
+        }
+
+        if (isMatch) {
+          matchingRides.push(ride);
+        } else {
+          nonMatchingRides.push(ride);
+        }
+      }
+
+      sortedRides = [...matchingRides, ...nonMatchingRides];
+    }
+
     return res.status(200).json({
       message: "Rides fetched",
-      data,
+      data: sortedRides,
     });
 
   } catch (error) {

@@ -1,9 +1,27 @@
 import mongoose, { Schema, type Model, type Document } from "mongoose";
 
+export type TopLanguages =
+    | "English"
+    | "French"
+    | "Punjabi"
+    | "Mandarin"
+    | "Arabic"
+    | "Cantonese"
+    | "Spanish"
+    | "Tagalog"
+    | "Italian"
+    | "German"
+    | "Urdu"
+    | "Portuguese"
+    | "Hindi"
+    | "Vietnamese"
+    | "Persian";
+
 export interface UserDocument extends Document {
     firstName: string;
     lastName: string;
     gender: string;
+    languages: TopLanguages[];
     email: string;
     phone: string;
     password: string;
@@ -23,6 +41,27 @@ const userSchema = new Schema<UserDocument>({
     gender: {
         type: String,
         required: true
+    },
+    languages: {
+        type: [String],
+      enum: [
+        "English",
+        "French",
+        "Punjabi",
+        "Mandarin",
+        "Arabic",
+        "Cantonese",
+        "Spanish",
+        "Tagalog",
+        "Italian",
+        "German",
+        "Urdu",
+        "Portuguese",
+        "Hindi",
+        "Vietnamese",
+        "Persian",
+      ] as TopLanguages[],
+      default: ["English"],
     },
     email: {
         type: String,

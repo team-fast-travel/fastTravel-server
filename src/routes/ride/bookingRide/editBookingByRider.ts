@@ -61,12 +61,6 @@ export const editBookingByRider = async (req: Request<BookEditParams>, res: Resp
             })
         };
 
-        if (bookRide.bookerId.toString() !== bookerId.toString()) {
-            return res
-                .status(403)
-                .json({ message: "You cannot edit someone else's ride" });
-        };
-
         // Selectively update provided fields
         Object.assign(bookRide, req.body);
 
